@@ -5,23 +5,72 @@ const swagger_autogen = require("swagger-autogen")({ openapi: "3.0.0" });
 
 // Data schemas
 const mongo_specs = {
-    Sample: {
+    Flight: {
         type: "object",
         properties: {
-            ATTRIBUTE_1: {
+            _id: {
                 type: "string",
             },
-            ATTRIBUTE_2: {
+            AIRLINE: {
+                type: "string",
+            },
+            FLIGHT_NUMBER: {
                 type: "number",
             },
-            ATTRIBUTE_3: {
+            ORIGIN_AIRPORT: {
+                type: "string",
+            },
+            DESTINATION_AIRPORT: {
+                type: "string",
+            },
+            CANCELLED: {
                 type: "boolean",
             },
-            ATTRIBUTE_4: {
+            DEPARTURE_DATE: {
+                type: "date",
+            },
+            ARRIVAL_DATE: {
                 type: "date",
             },
         },
-    }
+    },
+    Airport: {
+        type: "object",
+        properties: {
+            _id: {
+                type: "string",
+            },
+            IATA_CODE: {
+                type: "string",
+            },
+            AIRPORT: {
+                type: "string",
+            },
+            CITY: {
+                type: "string",
+            },
+            STATE: {
+                type: "string",
+            },
+            COUNTRY: {
+                type: "string",
+            },
+        },
+    },
+    Airline: {
+        type: "object",
+        properties: {
+            _id: {
+                type: "string",
+            },
+            IATA_CODE: {
+                type: "string",
+            },
+            AIRLINE: {
+                type: "string",
+            },
+        },
+    },
 };
 
 // API general specs
@@ -31,8 +80,8 @@ const general_specs = {
         description:
             "This is a Sample REST API for the Watson Airlines Customer Experience use case.",
         contact: {
-            name: "Josefina R. Casanova",
-            email: "josefinarcasanova@ibm.com",
+            name: "Agustina Benia",
+            email: "agusbenia@hotmail.com",
         },
         version: "1.0.0",
     },

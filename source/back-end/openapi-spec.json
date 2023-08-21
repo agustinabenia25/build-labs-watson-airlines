@@ -1,0 +1,279 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Watson Airlines Customer Experience",
+      "description": "This is a REST API for the Watson Airlines Customer Experience.",
+      "contact": {
+        "name": "Agustina Benia",
+        "email": "agusbenia@hotmail.com"
+      },
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "https://localhost:8080",
+        "description": "Local Server"
+      },
+      {
+        "url": "https://watson-rest-api.1642glnsh50v.us-south.codeengine.appdomain.cloud",
+        "description": "IBM Code Engine Deployment"
+      }
+    ],
+    "paths": {
+      "/api/flights": {
+        "get": {
+          "description": "Returns list of flights filtered by date, airline, origin, and/or destination",
+          "parameters": [
+            {
+              "name": "date",
+              "description": "Date to filter by",
+              "example": "2019-01-01",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "airline",
+              "description": "Airline to filter by",
+              "example": "AA",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "origin",
+              "description": "Origin to filter by",
+              "example": "JFK",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "destination",
+              "description": "Destination to filter by",
+              "example": "LAX",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "result": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Flight"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/flights/{id}": {
+        "get": {
+          "description": "Returns flight by object id",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Flight id",
+              "example": "63e53b3d123da255099f26ba"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "result": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Flight"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/airports": {
+        "get": {
+          "description": "Returns list of all airports from a city, state, or country",
+          "parameters": [
+            {
+              "name": "city",
+              "description": "City to filter by",
+              "example": "New York",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "state",
+              "description": "State to filter by",
+              "example": "NY",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "country",
+              "description": "Country to filter by",
+              "example": "United States",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "result": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Airport"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/airlines": {
+        "get": {
+          "description": "Returns list of all airlines",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "result": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Airline"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Flight": {
+          "type": "object",
+          "properties": {
+            "AIRLINE": {
+              "type": "string",
+              "example": "Watson"
+            },
+            "FLIGHT_NUMBER": {
+              "type": "number",
+              "example": 43
+            },
+            "ORIGIN_AIRPORT": {
+              "type": "string",
+              "example": "LAX"
+            },
+            "DESTINATION_AIRPORT": {
+              "type": "string",
+              "example": "SFO"
+            },
+            "CANCELLED": {
+              "type": "boolean",
+              "example": false
+            },
+            "DEPARTURE_DATE": {
+              "type": "string",
+              "example": "Fri Aug 18 2023 12:30"
+            },
+            "ARRIVAL_DATE": {
+              "type": "string",
+              "example": "Fri Aug 18 2023 16:30"
+            }
+          }
+        },
+        "Airline": {
+          "type": "object",
+          "properties": {
+            "IATA_CODE": {
+              "type": "string",
+              "example": "AA"
+            },
+            "AIRLINE": {
+              "type": "string",
+              "example": "American Airlines Inc."
+            }
+          }
+        },
+        "Airport": {
+          "type": "object",
+          "properties": {
+            "IATA_CODE": {
+              "type": "string",
+              "example": "LAX"
+            },
+            "AIRPORT": {
+              "type": "string",
+              "example": "Los Angeles International Airport"
+            },
+            "CITY": {
+              "type": "string",
+              "example": "Los Angeles"
+            },
+            "STATE": {
+              "type": "string",
+              "example": "California"
+            },
+            "COUNTRY": {
+              "type": "string",
+              "example": "United States"
+            }
+          }
+        }
+      }
+    },
+    "security": []
+  }
